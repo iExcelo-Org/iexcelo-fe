@@ -1,0 +1,81 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "katex/dist/katex.min.css";
+
+@media (max-width: 1200px) {
+  html {
+    zoom: 0.9;
+  }
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #808080;
+  scroll-behavior: smooth !important;
+}
+
+.no-scrollbar {
+  scrollbar-width: none !important;
+}
+
+.testimonial-box {
+  width: 100%;
+  height: calc(100% - 4rem);
+}
+
+@media (min-width: 768px) {
+  .testimonial-box {
+    width: calc(100% + 4.5rem);
+  }
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+/* Force .react-datepicker-wrapper to take full width */
+.react-datepicker-wrapper,
+.react-datepicker__input-container {
+  width: 100% !important;
+}
+
+.react-datepicker__input-container input {
+  width: 100% !important;
+  box-sizing: border-box;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  appearance: textfield;
+  -moz-appearance: textfield; /* Removes spin buttons in Firefox */
+}
+
+input:not([type="checkbox"]):focus {
+  outline: 0;
+  border-color: #007fff;
+}
+
+.gradients-subtle-hue-2 {
+  background: linear-gradient(180deg, #9146ff 0%, #6209e5 100%);
+}
+
+.gradients-subtle-hue-5 {
+  background: linear-gradient(180deg, #35a5ee 0%, #1264d6 100%);
+}
+
+.gradients-subtle-hue-9 {
+  background: linear-gradient(112deg, #b9953b 0%, #e5af24 71.46%);
+}
+
+.gradients-linear-grey {
+  background: linear-gradient(180deg, #fff 0%, #f3f5f7 100%);
+}

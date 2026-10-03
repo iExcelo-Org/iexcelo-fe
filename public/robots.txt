@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /student/
+Disallow: /sponsor/
+Disallow: /affiliates/
+Disallow: /auth/
+Disallow: /reset/
+Disallow: /signup/verify-email
+
+Sitemap: https://iexcelo.co/sitemap.xml

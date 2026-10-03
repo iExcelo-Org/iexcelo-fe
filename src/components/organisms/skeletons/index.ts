@@ -1,0 +1,9 @@
+export { default as EarningsSkeleton } from "./EarningsSkeleton";
+export { default as StudentSkeleton } from "./StudentSkeleton";
+export { default as SponsorDashboardSkeleton } from "./SponsorDashboardSkeleton";
+export { default as AffiliateSkeleton } from "./AffiliateSkeleton";
+export { default as CommissionsSkeleton } from "./CommissionsSkeleton";
+export { default as AffiliateStudentsSkeleton } from "./AffiliateStudentsSkeleton";
+export { default as SponsorStudentsSkeleton } from "./SponsorStudentsSkeleton";
+export { default as SponsorReferralsSkeleton } from "./SponsorReferralsSkeleton";
+export { default as ReferralsSkeleton } from "./ReferralsSkeleton";
