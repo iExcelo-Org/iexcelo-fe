@@ -5,17 +5,18 @@ export const metadata: Metadata = {
   title: "iExcelo - About Us",
   description:
     "Learn about iExcelo — the platform bridging exam preparation and opportunity for Nigerian students. Meet the team driving our mission to make quality education accessible through smart revision tools, GiveBack, and Affiliate programs.",
-  alternates: { canonical: "https://iexcelo.co/about" },
+  alternates: { canonical: "https://iexcelo.com/about" },
   openGraph: {
     type: "website",
-    url: "https://iexcelo.co/about",
+    url: "https://iexcelo.com/about",
     siteName: "iExcelo",
-    title: "About iExcelo – The Team Behind Nigeria's #1 Exam Revision Platform",
+    title:
+      "About iExcelo – The Team Behind Nigeria's #1 Exam Revision Platform",
     description:
       "Discover the story, mission, and values behind iExcelo. We're on a mission to make quality exam preparation accessible, engaging, and meaningful for every Nigerian student.",
     images: [
       {
-        url: "https://iexcelo.co/seo/open-graph.png",
+        url: "https://iexcelo.com/seo/open-graph.png",
         width: 1200,
         height: 630,
         alt: "iExcelo – About Us",
@@ -25,15 +26,21 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "About iExcelo – The Team Behind Nigeria's #1 Exam Revision Platform",
+    title:
+      "About iExcelo – The Team Behind Nigeria's #1 Exam Revision Platform",
     description:
       "Discover the story, mission, and values behind iExcelo — bridging exam preparation and opportunity for Nigerian students.",
-    images: ["https://iexcelo.co/seo/open-graph.png"],
+    images: ["https://iexcelo.com/seo/open-graph.png"],
   },
   robots: {
     index: true,
     follow: true,
-    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 

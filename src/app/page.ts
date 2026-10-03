@@ -25,17 +25,17 @@ export const metadata: Metadata = {
     "giveback education Nigeria",
     "affiliate program education",
   ],
-  alternates: { canonical: "https://iexcelo.co" },
+  alternates: { canonical: "https://iexcelo.com" },
   openGraph: {
     type: "website",
-    url: "https://iexcelo.co",
+    url: "https://iexcelo.com",
     siteName: "iExcelo",
     title: "iExcelo – Revise Smarter, Excel in Every Exam",
     description:
       "Nigeria's #1 exam revision platform for WAEC, JAMB, NECO & SAT. Curated past questions, expert explanations, real-time progress tracking, and a GiveBack program that makes education accessible for all.",
     images: [
       {
-        url: "https://iexcelo.co/seo/open-graph.png",
+        url: "https://iexcelo.com/seo/open-graph.png",
         width: 1200,
         height: 630,
         alt: "iExcelo – Nigeria's #1 Exam Revision Platform",
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     title: "iExcelo – Revise Smarter, Excel in Every Exam",
     description:
       "Nigeria's #1 exam revision platform for WAEC, JAMB, NECO & SAT. Curated past questions, expert explanations, and a GiveBack program for every student.",
-    images: ["https://iexcelo.co/seo/open-graph.png"],
+    images: ["https://iexcelo.com/seo/open-graph.png"],
   },
   robots: {
     index: true,

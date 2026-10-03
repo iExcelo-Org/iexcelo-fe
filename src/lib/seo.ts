@@ -1,6 +1,6 @@
 import type { Robots } from "next/dist/lib/metadata/types/metadata-types";
 
-export const BASE_URL = "https://iexcelo.co";
+export const BASE_URL = "https://iexcelo.com";
 
 export const SITE_NAME = "iExcelo";
 
