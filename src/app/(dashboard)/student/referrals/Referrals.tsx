@@ -203,7 +203,7 @@ const Referrals = () => {
     ref.hasSubscribed ? "Active" : "Pending",
     ref.totalRevenueGenerated > 0
       ? `${currencySymbol}${ref.totalRevenueGenerated.toLocaleString()}`
-      : "—",
+      : "-",
     new Date(ref.createdAt).toLocaleDateString("en-US", {
       year: "numeric",
       month: "short",
@@ -385,7 +385,33 @@ const Referrals = () => {
             />
           </div>
         ) : (
-          <Table shouldNotHaveBorder columns={tableColumns} data={tableData} />
+          <Table
+            shouldNotHaveBorder
+            columns={tableColumns}
+            data={tableData}
+            customResponsiveBody={(row, rowIndex) => {
+              const [name, status, earnings, date] = row as [string, string, string, string];
+              const isActive = status === "Active";
+              const initials = name.split(" ").map((n: string) => n[0] ?? "").join("").slice(0, 2).toUpperCase();
+              return (
+                <div key={rowIndex} className="flex items-center gap-3 px-4 py-3 border-b border-[#EDEDED] last:border-b-0">
+                  <div className="w-9 h-9 rounded-full flex items-center justify-center shrink-0 text-[.6875rem] font-[700] bg-[#007FFF18] text-[#007FFF]">
+                    {initials}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-[.8125rem] font-[600] text-[#171717] truncate">{name}</p>
+                    <p className="text-[.6875rem] text-[#667085] mt-0.5">{date}</p>
+                  </div>
+                  <div className="flex flex-col items-end gap-1 shrink-0">
+                    <span className={`text-[.6875rem] font-[600] px-2 py-0.5 rounded-full ${isActive ? "bg-green-50 text-green-700" : "bg-amber-50 text-amber-600"}`}>
+                      {status}
+                    </span>
+                    <span className="text-[.6875rem] text-[#667085]">{earnings}</span>
+                  </div>
+                </div>
+              );
+            }}
+          />
         )}
 
         {referralsTotalPages > 1 && (

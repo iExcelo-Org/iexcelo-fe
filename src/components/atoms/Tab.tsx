@@ -74,7 +74,7 @@ const Tab: FC<ITabProps> = ({
               ref={index === activeNumber ? activeButtonRef : null}
               onClick={() => setActiveNumber(index)}
               {...buttonProps}
-              className={`p-[.5rem_1rem_.375rem_1rem] text-[1rem] font-[500] ${index === activeNumber ? "text-[#007FFF]" : "text-[#667185]"} leading-6 transition-all duration-[.4s] ${buttonProps?.className || ""}`}
+              className={`p-[.375rem_.625rem_.25rem_.625rem] sm:p-[.5rem_1rem_.375rem_1rem] text-[.8125rem] sm:text-[1rem] font-[500] ${index === activeNumber ? "text-[#007FFF]" : "text-[#667185]"} leading-6 transition-all duration-[.4s] ${buttonProps?.className || ""}`}
             >
               {tab}
             </button>

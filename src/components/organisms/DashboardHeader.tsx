@@ -160,7 +160,7 @@ export function DashboardHeader({ onMenuClick }: DashboardHeaderProps) {
   const isStudent = user?.role === "student";
   const isAffiliate = user?.role === "affiliate";
   const isSponsored = isStudent && (profile?.isSponsored ?? false);
-  const currentExamIsPaid = dashboardData?.currentExamType?.isPaid ?? true;
+  const currentExamIsPaid = dashboardData?.currentExamType?.isPaid ?? false;
   const showUpgradeButton = isStudent && !currentExamIsPaid && !isSponsored;
   const isFirstTimePremium = !!dashboardData?.flags?.showGoPremiumModal;
 
@@ -223,10 +223,10 @@ export function DashboardHeader({ onMenuClick }: DashboardHeaderProps) {
                   );
                 }
               }}
-              className="hidden sm:flex items-center gap-2 px-4 py-2 border border-pink-200 rounded-full text-pink-500 hover:bg-pink-50 transition-colors"
+              className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 border border-pink-200 rounded-full text-pink-500 hover:bg-pink-50 transition-colors"
             >
-              <Icon icon="hugeicons:diamond-02" className="w-4 h-4" />
-              <span className="text-sm font-medium">Upgrade</span>
+              <Icon icon="hugeicons:diamond-02" className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              <span className="text-xs sm:text-sm font-medium">Upgrade</span>
             </button>
           ) : null}
 

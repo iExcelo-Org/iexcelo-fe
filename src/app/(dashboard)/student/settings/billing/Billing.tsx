@@ -20,12 +20,12 @@ function SectionCard({
   return (
     <div
       style={{ boxShadow: CARD_SHADOW }}
-      className="rounded-[.75rem] bg-white p-[1.5rem]"
+      className="rounded-[.75rem] bg-white p-[1rem] sm:p-[1.5rem]"
     >
-      <div className="mb-[1.25rem]">
-        <h2 className="text-[1rem] font-[600] text-[#101828]">{title}</h2>
+      <div className="mb-[1rem] sm:mb-[1.25rem]">
+        <h2 className="text-[.9375rem] sm:text-[1rem] font-[600] text-[#101828]">{title}</h2>
         {description && (
-          <p className="text-[.875rem] text-[#667085] mt-[.25rem]">
+          <p className="text-[.8125rem] sm:text-[.875rem] text-[#667085] mt-[.25rem]">
             {description}
           </p>
         )}
@@ -371,20 +371,20 @@ export default function Billing() {
               {billingHistory.map((tx) => (
                 <div
                   key={tx.id}
-                  className="flex items-center justify-between py-[.875rem] border-b border-[#F2F4F7] last:border-b-0 gap-4"
+                  className="flex items-center justify-between py-[.75rem] sm:py-[.875rem] border-b border-[#F2F4F7] last:border-b-0 gap-2 sm:gap-4"
                 >
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-[.5rem] bg-[#F9FAFB] border border-[#E4E7EC] flex items-center justify-center shrink-0">
+                  <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+                    <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-[.5rem] bg-[#F9FAFB] border border-[#E4E7EC] flex items-center justify-center shrink-0">
                       <Icon
                         icon="hugeicons:receipt-text"
-                        className="w-4 h-4 text-[#667085]"
+                        className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#667085]"
                       />
                     </div>
-                    <div>
-                      <p className="text-[.875rem] font-[500] text-[#344054] capitalize">
+                    <div className="min-w-0">
+                      <p className="text-[.8125rem] sm:text-[.875rem] font-[500] text-[#344054] capitalize truncate">
                         {tx.type.replace(/_/g, " ")}
                       </p>
-                      <p className="text-[.75rem] text-[#667085]">
+                      <p className="text-[.6875rem] sm:text-[.75rem] text-[#667085] truncate">
                         {tx.paidAt
                           ? formatDate(tx.paidAt)
                           : formatDate(tx.createdAt)}
@@ -396,13 +396,13 @@ export default function Billing() {
                       </p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-3 shrink-0">
+                  <div className="flex items-center gap-2 sm:gap-3 shrink-0">
                     <span
-                      className={`px-[.5rem] py-[.125rem] rounded-full text-[.75rem] font-[500] capitalize ${TX_STATUS[tx.status.toLowerCase()] ?? "bg-[#F2F4F7] text-[#344054]"}`}
+                      className={`px-[.4375rem] sm:px-[.5rem] py-[.125rem] rounded-full text-[.6875rem] sm:text-[.75rem] font-[500] capitalize ${TX_STATUS[tx.status.toLowerCase()] ?? "bg-[#F2F4F7] text-[#344054]"}`}
                     >
                       {tx.status}
                     </span>
-                    <span className="text-[.875rem] font-[600] text-[#101828]">
+                    <span className="text-[.8125rem] sm:text-[.875rem] font-[600] text-[#101828]">
                       {formatAmount(tx.amount, tx.currency)}
                     </span>
                   </div>
@@ -412,8 +412,8 @@ export default function Billing() {
 
             {/* Pagination */}
             {totalPages > 1 && (
-              <div className="flex items-center justify-between mt-4 pt-4 border-t border-[#F2F4F7]">
-                <p className="text-[.8125rem] text-[#667085]">
+              <div className="flex items-center justify-between mt-4 pt-4 border-t border-[#F2F4F7] gap-3 flex-wrap">
+                <p className="text-[.75rem] sm:text-[.8125rem] text-[#667085]">
                   Page {billingPage} of {totalPages} ·{" "}
                   <span className="font-[500]">{billingTotal}</span>{" "}
                   transactions

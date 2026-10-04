@@ -48,12 +48,12 @@ function SectionCard({
   return (
     <div
       style={{ boxShadow: CARD_SHADOW }}
-      className="rounded-[.75rem] bg-white p-[1.5rem]"
+      className="rounded-[.75rem] bg-white p-[1rem] sm:p-[1.5rem]"
     >
-      <div className="mb-[1.25rem]">
-        <h2 className="text-[1rem] font-[600] text-[#101828]">{title}</h2>
+      <div className="mb-[1rem] sm:mb-[1.25rem]">
+        <h2 className="text-[.9375rem] sm:text-[1rem] font-[600] text-[#101828]">{title}</h2>
         {description && (
-          <p className="text-[.875rem] text-[#667085] mt-[.25rem]">
+          <p className="text-[.8125rem] sm:text-[.875rem] text-[#667085] mt-[.25rem]">
             {description}
           </p>
         )}
@@ -353,14 +353,14 @@ function PasswordInner() {
         title="Connected Accounts"
         description="Manage how you sign in to iExcelo"
       >
-        <div className="flex items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
+        <div className="flex items-center justify-between gap-3 flex-wrap">
+          <div className="flex items-center gap-3 min-w-0">
             <div className="w-10 h-10 rounded-full border border-[#D0D5DD] bg-white flex items-center justify-center shrink-0">
               <SVGClient src="/svg/google.svg" />
             </div>
-            <div>
+            <div className="min-w-0">
               <p className="text-[.875rem] font-[500] text-[#344054]">Google</p>
-              <p className="text-[.8125rem] text-[#667085]">
+              <p className="text-[.8125rem] text-[#667085] truncate">
                 {isGoogleOnly
                   ? `Connected · ${user?.email}`
                   : isDual

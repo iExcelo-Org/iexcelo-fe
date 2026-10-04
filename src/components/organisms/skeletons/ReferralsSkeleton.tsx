@@ -56,11 +56,27 @@ const ReferralsSkeleton = () => {
         className="rounded-[.625rem] overflow-hidden pt-4 animate-pulse mb-6"
       >
         <div className="px-3 sm:px-4 pb-2.5 sm:pb-3 border-b border-gray-100 flex gap-2 items-center">
-          {/* Tab text: text-[.875rem] sm:text-[1rem] leading-6 → h-6 */}
           <div className="h-5 sm:h-6 w-16 sm:w-20 bg-gray-200 rounded" />
           <div className="h-5 w-7 bg-gray-100 rounded-full" />
         </div>
-        <div className="p-3 sm:p-4 space-y-3 sm:space-y-4">
+        {/* Mobile (lg:hidden) — list rows matching customResponsiveBody */}
+        <div className="lg:hidden">
+          {[0, 1, 2, 3, 4].map((i) => (
+            <div key={i} className="flex items-center gap-3 px-4 py-3 border-b border-[#EDEDED] last:border-b-0">
+              <div className="w-9 h-9 bg-gray-200 rounded-full shrink-0" />
+              <div className="flex-1 min-w-0 space-y-1.5">
+                <div className="h-3.5 bg-gray-200 rounded w-24 sm:w-32" />
+                <div className="h-3 bg-gray-100 rounded w-16 sm:w-20" />
+              </div>
+              <div className="flex flex-col items-end gap-1.5 shrink-0">
+                <div className="h-[1.25rem] w-12 bg-gray-100 rounded-full" />
+                <div className="h-3 w-8 bg-gray-100 rounded" />
+              </div>
+            </div>
+          ))}
+        </div>
+        {/* Desktop (hidden lg:block) — column row */}
+        <div className="hidden lg:block p-3 sm:p-4 space-y-3 sm:space-y-4">
           {[0, 1, 2, 3, 4].map((i) => (
             <div key={i} className="flex justify-between gap-3 sm:gap-4">
               <div className="h-4 w-28 sm:w-40 bg-gray-200 rounded" />

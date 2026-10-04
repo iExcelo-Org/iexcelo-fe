@@ -612,7 +612,7 @@ function RevisionTestContent() {
                                       handleSelectOption(option.id)
                                     }
                                     customLabel={
-                                      <div className="flex items-center gap-3 flex-1 ml-2">
+                                      <div className="flex items-center gap-1.5 sm:gap-3 flex-1 ml-2">
                                         <span
                                           className={cn(
                                             "text-xs font-bold w-5 shrink-0",
@@ -701,7 +701,7 @@ function RevisionTestContent() {
                                     handleSelectOption(option.id)
                                   }
                                   className={cn(
-                                    "flex items-center gap-3 w-full text-left p-3 rounded-lg transition-colors",
+                                    "flex items-center gap-1.5 sm:gap-3 w-full text-left p-3 rounded-lg transition-colors",
                                     state === "correct" && "bg-green-50",
                                     state === "incorrect" && "bg-red-50",
                                     state === "default" &&
@@ -925,7 +925,7 @@ function RevisionTestContent() {
               </div>
 
               {/* Sidebar */}
-              <div className="hidden lg:block">
+              <div className="hidden lg:block sticky top-4 self-start">
                 <div
                   style={{
                     boxShadow:

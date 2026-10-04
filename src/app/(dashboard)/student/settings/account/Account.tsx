@@ -54,10 +54,10 @@ function SectionCard({
   children: React.ReactNode;
 }) {
   return (
-    <div style={{ boxShadow: CARD_SHADOW }} className="rounded-[.75rem] bg-white p-[1.5rem]">
-      <div className="mb-[1.25rem]">
-        <h2 className="text-[1rem] font-[600] text-[#101828]">{title}</h2>
-        {description && <p className="text-[.875rem] text-[#667085] mt-[.25rem]">{description}</p>}
+    <div style={{ boxShadow: CARD_SHADOW }} className="rounded-[.75rem] bg-white p-[1rem] sm:p-[1.5rem]">
+      <div className="mb-[1rem] sm:mb-[1.25rem]">
+        <h2 className="text-[.9375rem] sm:text-[1rem] font-[600] text-[#101828]">{title}</h2>
+        {description && <p className="text-[.8125rem] sm:text-[.875rem] text-[#667085] mt-[.25rem]">{description}</p>}
       </div>
       {children}
     </div>
@@ -237,7 +237,7 @@ export default function Account() {
 
       {/* Danger Zone */}
       <SectionCard title="Danger Zone">
-        <div className="flex items-start justify-between gap-4">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
           <div>
             <p className="text-[.875rem] font-[500] text-[#344054]">Delete Account</p>
             <p className="text-[.8125rem] text-[#667085] mt-[.25rem]">
@@ -246,7 +246,7 @@ export default function Account() {
           </div>
           <button
             onClick={() => setShowDeleteModal(true)}
-            className="shrink-0 px-4 py-2 rounded-[.5rem] text-[.875rem] font-[500] text-[#D42620] bg-[#FEF3F2] border border-[#FECDCA] hover:bg-[#FEE4E2] hover:border-[#F97066] focus:outline-none focus:ring-2 focus:ring-[#FDA29B] transition-colors"
+            className="self-start sm:shrink-0 px-4 py-2 rounded-[.5rem] text-[.875rem] font-[500] text-[#D42620] bg-[#FEF3F2] border border-[#FECDCA] hover:bg-[#FEE4E2] hover:border-[#F97066] focus:outline-none focus:ring-2 focus:ring-[#FDA29B] transition-colors"
           >
             Delete Account
           </button>

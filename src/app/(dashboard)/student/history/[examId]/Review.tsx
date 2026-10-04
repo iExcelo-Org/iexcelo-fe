@@ -99,6 +99,9 @@ function ReviewSkeleton() {
         <div className="h-4 sm:h-5 bg-gray-200 rounded w-20 sm:w-24 mb-2" />
         <div className="h-4 sm:h-5 bg-gray-200 rounded w-32 sm:w-40 mb-2" />
       </div>
+      {/* Score banner skeleton */}
+      <div className="h-[5.5rem] sm:h-[6.5rem] bg-gray-200 rounded-[1rem] mb-4 sm:mb-6" />
+
       {/* Overview skeleton */}
       <div
         style={{
@@ -127,21 +130,34 @@ function ReviewSkeleton() {
           </div>
         </div>
       </div>
-      <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
+      <div className="flex flex-col lg:flex-row gap-4 sm:gap-6">
         <div
           style={{
             boxShadow:
               "0 0 0 1px rgba(0,0,0,0.06), 0 5px 22px 0 rgba(0,0,0,0.04)",
           }}
-          className="flex-1 p-4 sm:p-6 bg-white rounded-[1rem] h-[16rem] sm:h-[22rem]"
-        />
+          className="flex-1 p-4 sm:p-6 bg-white rounded-[1rem]"
+        >
+          <div className="h-4 sm:h-5 w-32 sm:w-44 bg-gray-200 rounded mb-3" />
+          <div className="h-[220px] sm:h-[280px] bg-gray-100 rounded-lg" />
+        </div>
         <div
           style={{
             boxShadow:
               "0 0 0 1px rgba(0,0,0,0.06), 0 5px 22px 0 rgba(0,0,0,0.04)",
           }}
-          className="flex-1 p-4 sm:p-6 bg-white rounded-[1rem] h-[16rem] sm:h-[22rem]"
-        />
+          className="flex-1 p-4 sm:p-6 bg-white rounded-[1rem]"
+        >
+          <div className="h-4 sm:h-5 w-28 sm:w-36 bg-gray-200 rounded mb-4 sm:mb-6" />
+          <div className="space-y-3 sm:space-y-4">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <div key={i} className="flex gap-3">
+                <div className="h-3.5 sm:h-4 bg-gray-200 rounded w-28 sm:w-36" />
+                <div className="h-3.5 sm:h-4 bg-gray-100 rounded w-8 sm:w-12" />
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -292,7 +308,7 @@ const Review = () => {
                 Exam Review
               </h1>
               <p className="text-gray-500 text-xs sm:text-sm mt-0.5">
-                {examTypeName} &mdash; {capitalize(mode)} Mode
+                {examTypeName} · {capitalize(mode)} Mode
               </p>
             </div>
           </div>
@@ -303,6 +319,49 @@ const Review = () => {
           tabChildren={[
             /* ── TAB 1: Overview ─────────────────────────────────────────── */
             <section key="overview" className="pt-6">
+              {/* Score banner */}
+              {!hideScore && (
+                <div
+                  style={{
+                    background:
+                      scorePercentage >= 50
+                        ? "linear-gradient(135deg, #099137 0%, #036B26 100%)"
+                        : "linear-gradient(135deg, #D42620 0%, #9B1B1B 100%)",
+                  }}
+                  className="p-4 sm:p-6 rounded-[1rem] mb-4 sm:mb-6 text-white flex items-center justify-between gap-4"
+                >
+                  <div>
+                    <p className="text-white/70 text-[.6875rem] sm:text-xs font-[500] uppercase tracking-wider mb-0.5">
+                      Your Score
+                    </p>
+                    <h2 className="text-[2rem] sm:text-[2.5rem] font-[700] leading-none tracking-tight">
+                      {scorePercentage.toFixed(1)}%
+                    </h2>
+                    <p className="text-white/80 text-[.75rem] sm:text-sm mt-1.5">
+                      {correctAnswers} correct · {wrongAnswers} incorrect · {unanswered} unanswered
+                    </p>
+                  </div>
+                  <div className="shrink-0 text-right">
+                    <span className="inline-block px-3 py-1.5 bg-white/20 rounded-lg text-[.8125rem] sm:text-sm font-[600]">
+                      {scorePercentage >= 80
+                        ? "Excellent"
+                        : scorePercentage >= 60
+                          ? "Good"
+                          : scorePercentage >= 50
+                            ? "Pass"
+                            : "Needs Work"}
+                    </span>
+                    <div
+                      style={{ backgroundColor: modeInfo.bg, color: modeInfo.color }}
+                      className="mt-2 flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[.6875rem] sm:text-xs font-[500]"
+                    >
+                      <Icon icon={modeInfo.icon} className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                      {modeInfo.label}
+                    </div>
+                  </div>
+                </div>
+              )}
+
               {/* Exam Details Card */}
               <div
                 style={{
@@ -443,7 +502,7 @@ const Review = () => {
                     boxShadow:
                       "0 0 0 1px rgba(0, 0, 0, 0.06), 0 5px 22px 0 rgba(0, 0, 0, 0.04)",
                   }}
-                  className="p-4 sm:p-6 flex-1 flex flex-col bg-white rounded-[1rem]"
+                  className="p-4 sm:p-6 flex-1 flex flex-col bg-white rounded-[1rem] min-h-[280px] sm:min-h-[320px]"
                 >
                   <div className="flex pb-3 sm:pb-4 items-center gap-[.75rem] sm:gap-[1rem]">
                     <span
@@ -459,7 +518,7 @@ const Review = () => {
                       Question Performance
                     </span>
                   </div>
-                  <div className="flex-1 min-h-[220px] sm:min-h-[280px]">
+                  <div className="h-[220px] sm:h-[280px]">
                     {pieData.length > 0 ? (
                       <Chart
                         type="pie"
@@ -503,7 +562,7 @@ const Review = () => {
                     </span>
                   </div>
 
-                  <div className="flex flex-1 justify-between flex-col gap-[.75rem] sm:gap-[1rem]">
+                  <div className="flex flex-col flex-1">
                     {[
                       { name: "Total Questions", value: totalQuestions },
                       {
@@ -537,15 +596,23 @@ const Review = () => {
                     ].map((item, index) => (
                       <div
                         key={`__stat__${index}`}
-                        className="flex gap-[.5rem] sm:gap-[1rem] items-center"
+                        className="flex items-center justify-between py-[.625rem] sm:py-[.75rem] border-b border-[#F2F4F7] last:border-b-0"
                       >
-                        <span className="text-[#454545] leading-6 sm:leading-7 text-[.875rem] sm:text-[1.125rem] font-[400]">
-                          {item.name}:
-                        </span>
+                        <div className="flex items-center gap-2">
+                          {item.color && (
+                            <span
+                              style={{ backgroundColor: item.color }}
+                              className="w-2 h-2 rounded-full shrink-0"
+                            />
+                          )}
+                          <span className="text-[#667085] text-[.8125rem] sm:text-[.875rem] font-[400]">
+                            {item.name}
+                          </span>
+                        </div>
                         <span
                           style={item.color ? { color: item.color } : undefined}
                           className={cn(
-                            "leading-6 sm:leading-7 text-[.875rem] sm:text-[1.125rem] font-[500]",
+                            "text-[.875rem] sm:text-[.9375rem] font-[600] tabular-nums",
                             !item.color && "text-[#2B2B2B]",
                           )}
                         >
@@ -580,9 +647,24 @@ const Review = () => {
                     }}
                     className="bg-white rounded-[1rem] p-3 sm:p-4 mb-4 sm:mb-6"
                   >
+                    <div className="flex items-center justify-between mb-2 sm:mb-3">
+                      <span className="text-xs sm:text-sm font-[600] text-[#2B2B2B]">
+                        Questions
+                      </span>
+                      <span className="text-[.6875rem] sm:text-xs font-[500] text-[#667085] bg-[#F3F3F3] px-2 py-0.5 rounded-full">
+                        {currentQuestion} / {totalCount}
+                      </span>
+                    </div>
+                    {/* Progress bar */}
+                    <div className="w-full h-1 bg-gray-100 rounded-full mb-3 overflow-hidden">
+                      <div
+                        className="h-full bg-[#007FFF] rounded-full transition-all duration-300"
+                        style={{ width: `${(currentQuestion / totalCount) * 100}%` }}
+                      />
+                    </div>
                     <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-3">
                       <span className="text-xs sm:text-sm font-medium text-[#454545] shrink-0">
-                        Jump to question:
+                        Jump to:
                       </span>
                       <div className="flex items-center gap-1 sm:gap-1.5 flex-wrap text-[.6875rem] sm:text-xs">
                         <span className="flex items-center gap-1">
@@ -633,7 +715,7 @@ const Review = () => {
                   ) : null}
 
                   {/* Prev / Next navigation */}
-                  <div className="flex items-center justify-between mt-4 sm:mt-6">
+                  <div className="flex items-center justify-center gap-3 mt-4 sm:mt-6">
                     <Button
                       onClick={() =>
                         navigateTo(Math.max(1, currentQuestion - 1))
@@ -646,8 +728,8 @@ const Review = () => {
                       />
                       <span className="hidden sm:inline">Previous</span>
                     </Button>
-                    <span className="text-[.6875rem] sm:text-sm font-medium text-[#454545]">
-                      Question {currentQuestion} of {totalCount}
+                    <span className="text-[.6875rem] sm:text-sm font-[600] text-[#454545] px-3 py-1.5 bg-[#F3F3F3] rounded-lg min-w-[4.5rem] text-center">
+                      {currentQuestion} / {totalCount}
                     </span>
                     <Button
                       onClick={() =>

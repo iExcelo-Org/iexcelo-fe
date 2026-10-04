@@ -85,11 +85,10 @@ const CustomLegend = (props: LegendProps & { payload?: [any] }) => (
     style={{
       display: "flex",
       flexDirection: "row",
-      gap: ".9rem",
-      position: "absolute",
-      top: "-22rem",
-      right: "0",
-      width: "fit-content",
+      flexWrap: "wrap",
+      gap: ".25rem .6rem",
+      justifyContent: "flex-end",
+      paddingBottom: ".375rem",
     }}
   >
     {props?.payload?.map((entry, index) => (
@@ -99,20 +98,21 @@ const CustomLegend = (props: LegendProps & { payload?: [any] }) => (
           display: "flex",
           flexDirection: "row",
           alignItems: "center",
-          gap: ".5rem",
+          gap: ".3rem",
         }}
       >
         <div
           style={{
-            width: ".5rem",
-            height: ".5rem",
+            width: ".375rem",
+            height: ".375rem",
+            flexShrink: 0,
             backgroundColor: entry.color,
             borderRadius: "50%",
           }}
         />
         <span
           style={{
-            fontSize: ".85rem",
+            fontSize: ".75rem",
             color: "#667185",
           }}
         >
@@ -216,7 +216,7 @@ const Chart = ({
         >
           <LineChart
             data={userData ?? []}
-            margin={{ top: 0, right: 0, left: -20, bottom: 0 }}
+            margin={{ top: 0, right: 10, left: -30, bottom: 0 }}
             {...props?.lineChartProps?.lineChart}
           >
             {labelProps?.map((prop, index) => (
@@ -273,6 +273,8 @@ const Chart = ({
             {props?.legendInfo?.prefers && (
               <Legend
                 content={!!userBasedLegend ? userBasedLegend : <CustomLegend />}
+                verticalAlign="top"
+                align="right"
                 {...props?.legend}
               />
             )}
@@ -291,7 +293,7 @@ const Chart = ({
         >
           <AreaChart
             data={userData ?? []}
-            margin={{ top: 0, right: 0, left: -20, bottom: 0 }}
+            margin={{ top: 5, right: 10, left: -30, bottom: 0 }}
           >
             <defs>
               {labelProps?.map((prop, index) => (
@@ -352,6 +354,8 @@ const Chart = ({
             {props?.legendInfo?.prefers && (
               <Legend
                 content={!!userBasedLegend ? userBasedLegend : <CustomLegend />}
+                verticalAlign="top"
+                align="right"
                 {...props?.legend}
               />
             )}
@@ -382,7 +386,7 @@ const Chart = ({
             barGap={0}
             data={userData ?? []}
             style={{}}
-            margin={{ top: 0, right: 0, left: -20, bottom: 0 }}
+            margin={{ top: 0, right: 10, left: -30, bottom: 0 }}
             {...props?.barChartProps?.barChart}
           >
             <CartesianGrid
@@ -449,6 +453,8 @@ const Chart = ({
             {props?.legendInfo?.prefers && (
               <Legend
                 content={!!userBasedLegend ? userBasedLegend : <CustomLegend />}
+                verticalAlign="top"
+                align="right"
                 {...props?.legend}
               />
             )}

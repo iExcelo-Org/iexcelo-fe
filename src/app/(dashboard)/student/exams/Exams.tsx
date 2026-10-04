@@ -341,9 +341,9 @@ export default function Exams() {
         >
           {isDemoUser && (
             <div className="p-4 border border-[#FFD6A7] bg-[#FEF6E7] rounded-xl sm:rounded-[9999999px] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-8">
-              <div className="flex items-center gap-2 text-[#865503]">
+              <div className="flex items-start sm:items-center gap-2 text-[#865503]">
                 <Icon
-                  className="w-4 h-4 text-current"
+                  className="w-4 h-4 text-current shrink-0 mt-0.5 sm:mt-0"
                   icon={"hugeicons:square-lock-01"}
                 />
                 <span className="font-[400] text-[.875rem] leading-5">
@@ -354,7 +354,7 @@ export default function Exams() {
               </div>
               {!isSponsored && (
                 <Link href={`/student/upgrade?examTypeId=${examTypeId}`} className="w-full sm:w-auto">
-                  <Button className="text-[.875rem] w-full sm:w-auto justify-center">
+                  <Button className="text-[.875rem] w-full sm:w-auto justify-center whitespace-nowrap">
                     <Icon className="w-5 h-5" icon={"hugeicons:sparkles"} />
                     Subscribe Now
                   </Button>
@@ -449,7 +449,7 @@ export default function Exams() {
 
                   {isLocked && (
                     <>
-                      <span className="absolute bg-[#EDEDED] w-full h-full opacity-[.4] top-0 left-0" />
+                      <span className="absolute bg-[#EDEDED] w-full h-full opacity-[.4] top-0 left-0 rounded-xl" />
                       <span className="absolute w-full h-full top-0 left-0 p-2">
                         <span className="bg-[#D42620] flex items-center p-[.125rem_.375rem] text-white rounded-[999999px] text-[.75rem] gap-1 w-fit ml-auto">
                           <Icon

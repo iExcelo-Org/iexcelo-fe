@@ -140,9 +140,10 @@ export default function Upgrade({ examTypeId, checkoutInfo }: UpgradeProps) {
         <div className="max-w-6xl mx-auto">
           <button
             onClick={() => router.back()}
-            className="text-gray-400 hover:text-gray-600 mb-8"
+            className="w-9 h-9 flex items-center justify-center rounded-full bg-white hover:bg-gray-50 text-gray-500 hover:text-gray-700 transition-colors mb-8"
+            style={{ boxShadow: "0 0 0 1px rgba(0,0,0,0.08)" }}
           >
-            <Icon icon="hugeicons:cancel-01" className="w-8 h-8" />
+            <Icon icon="hugeicons:arrow-left-02" className="w-4 h-4" />
           </button>
 
           <div className="text-center mb-10">
@@ -159,13 +160,23 @@ export default function Upgrade({ examTypeId, checkoutInfo }: UpgradeProps) {
             )}
           </div>
 
-          <div className="flex flex-wrap justify-center gap-6">
-            {plans.map((plan) => {
+          <div className="grid grid-cols-1 sm:grid-cols-4 lg:grid-cols-6 gap-6">
+            {plans.map((plan, index) => {
               const isSelected = selectedPlanId === plan.id;
+              const total = plans.length;
+              const isLast = index === total - 1;
+              const isSecondToLast = index === total - 2;
+              const smRemainder = total % 2;
+              const lgRemainder = total % 3;
+              const smStart = smRemainder === 1 && isLast ? "sm:col-start-2" : "";
+              let lgStart = "";
+              if (lgRemainder === 1 && isLast) lgStart = "lg:col-start-3";
+              else if (lgRemainder === 2 && isSecondToLast) lgStart = "lg:col-start-2";
+              else if (lgRemainder === 2 && isLast) lgStart = "lg:col-start-4";
               return (
                 <div
                   key={plan.id}
-                  className="w-full md:w-[calc(33.333%-1rem)] cursor-pointer"
+                  className={cn("sm:col-span-2 lg:col-span-2 cursor-pointer", smStart, lgStart)}
                   onClick={() => {
                     setSelectedPlanId(plan.id);
                     const firstProv = plan.providers[0]?.provider ?? null;

@@ -149,11 +149,11 @@ export default function Home() {
             multiple exam types, helping students prepare better, faster, and
             with confidence.
           </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-4 gap-6 lg:gap-10 justify-items-center">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 lg:gap-10 justify-items-center">
             {["waec-v2", "jamb-v2", "neco-v2", "sat-v2"].map((item, index) => (
               <span
                 key={`___${index}__`}
-                className={`md:col-span-2 lg:col-span-1${index === 3 ? " md:col-start-4 lg:col-start-auto" : ""} w-[9rem] h-[9rem] sm:w-[10rem] sm:h-[10rem] lg:w-43.25 lg:h-43.25 flex items-center justify-center rounded-[50%]`}
+                className={`${index === 3 ? "md:col-start-2 lg:col-start-auto" : ""} w-43.25 h-43.25 flex items-center justify-center rounded-[50%] overflow-hidden`}
                 style={{
                   boxShadow: `0 0 0 0.613px rgba(0, 0, 0, 0.06), 0 3.067px 13.496px 0 rgba(0, 0, 0, 0.04)`,
                 }}

@@ -15,10 +15,10 @@ export default function StudentSkeleton() {
 
       {/* CTA banner */}
       <div className="mb-[1.125rem] sm:mb-6">
-        <div className="bg-gray-200 rounded-2xl p-[1rem] sm:p-6 md:p-8 animate-pulse overflow-hidden">
-          <div className="h-5 sm:h-6 w-3/5 sm:w-64 bg-gray-300 rounded-lg mb-2 sm:mb-3" />
-          <div className="h-3.5 sm:h-4 w-4/5 sm:w-80 bg-gray-300 rounded mb-3 sm:mb-4" />
-          <div className="h-8 sm:h-10 w-2/5 sm:w-40 bg-gray-300 rounded-lg" />
+        <div className="bg-[#007FFF]/10 rounded-2xl p-[1rem] sm:p-6 md:p-8 animate-pulse overflow-hidden">
+          <div className="h-[.9375rem] sm:h-5 md:h-6 w-3/5 sm:w-64 bg-[#007FFF]/20 rounded-lg mb-1 sm:mb-2" />
+          <div className="h-3 sm:h-3.5 w-4/5 sm:w-80 bg-[#007FFF]/10 rounded mb-3 sm:mb-4" />
+          <div className="h-7 sm:h-[1.875rem] w-2/5 sm:w-36 bg-[#007FFF]/20 rounded-lg" />
         </div>
       </div>
 
@@ -27,13 +27,14 @@ export default function StudentSkeleton() {
         {[0, 1, 2].map((i) => (
           <div
             key={i}
-            className="bg-white rounded-xl py-3.5 px-4 sm:py-5 sm:px-4 border border-[#D6D6D6] flex items-center gap-3 sm:flex-col sm:justify-center sm:items-start sm:gap-0 animate-pulse min-h-[7rem] sm:min-h-0"
+            className="bg-white rounded-xl py-3.5 px-4 sm:py-5 sm:px-4 border border-[#D6D6D6] flex items-center gap-3 sm:flex-col sm:justify-center sm:items-start sm:gap-0 animate-pulse min-h-[4.375rem] sm:min-h-0"
+            style={{ boxShadow: "0 4px 4px 0 rgba(0,0,0,0.00), 0 7px 12px 0 rgba(0,0,0,0.02)" }}
           >
-            {/* Icon placeholder */}
-            <div className="w-9 h-9 sm:w-12 sm:h-12 bg-gray-200 rounded-lg shrink-0 sm:mb-4" />
+            {/* Icon placeholder — mobile: p-[.5rem]+icon 18px ≈ 34px, sm+: p-[.875rem]+icon 24px ≈ 52px */}
+            <div className="w-[2.125rem] h-[2.125rem] sm:w-[3.25rem] sm:h-[3.25rem] bg-gray-200 rounded-lg shrink-0 sm:mb-4" />
             <div>
-              <div className="h-3 w-20 bg-gray-200 rounded mb-1.5" />
-              <div className="h-6 sm:h-7 w-14 bg-gray-200 rounded" />
+              <div className="h-[.9375rem] sm:h-[.875rem] w-20 sm:w-24 bg-gray-200 rounded mb-0.5 sm:mb-1" />
+              <div className="h-[1.25rem] sm:h-[1.75rem] w-10 sm:w-14 bg-gray-200 rounded" />
             </div>
           </div>
         ))}

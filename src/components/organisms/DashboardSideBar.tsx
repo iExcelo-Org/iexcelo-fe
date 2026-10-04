@@ -172,14 +172,14 @@ export function DashboardSideBar({
             </div>
             <button
               onClick={onClose}
-              className="text-white/80 hover:text-white lg:hidden"
+              className="w-8 h-8 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white/70 hover:text-white transition-colors lg:hidden shrink-0"
             >
-              <Icon icon="hugeicons:cancel-01" className="w-6 h-6" />
+              <Icon icon="hugeicons:cancel-01" className="w-4 h-4" />
             </button>
           </div>
         </div>
 
-        <nav className="flex-1 flex flex-col gap-[.25rem] px-[.5rem]">
+        <nav className="flex-1 min-h-0 flex flex-col gap-[.25rem] px-[.5rem] overflow-y-auto [scrollbar-width:thin] [scrollbar-color:rgba(255,255,255,0.15)_transparent] [&::-webkit-scrollbar]:w-0.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-white/20 [&::-webkit-scrollbar-thumb]:rounded-full">
           {items.map((item) => {
             // Check if item has children (accordion)
             if (item.children && item.children.length > 0) {
@@ -221,7 +221,7 @@ export function DashboardSideBar({
         </nav>
 
         {isSponsored ? (
-          <div className="mx-3 mb-6 p-4 bg-[#1A4A7A] rounded-xl">
+          <div className="mx-3 mt-3 mb-6 p-4 bg-[#1A4A7A] rounded-xl shrink-0">
             <div className="flex items-center gap-2 mb-1">
               <Icon
                 icon="hugeicons:shield-01"
@@ -245,7 +245,7 @@ export function DashboardSideBar({
         ) : (
           showUpgrade &&
           showPremium && (
-            <div className="mx-3 mb-6 p-4 bg-[#005AB5] rounded-xl relative">
+            <div className="mx-3 mt-3 mb-6 p-4 bg-[#005AB5] rounded-xl relative shrink-0">
               <button
                 onClick={() => setShowPremium(false)}
                 className="absolute top-3 right-3 text-white/80 hover:text-white"

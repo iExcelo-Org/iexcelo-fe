@@ -100,7 +100,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
 
           <section className="flex-1 flex flex-col">
             <DashboardHeader onMenuClick={() => setMobileMenuOpen(true)} />
-            <main className="flex-1 overflow-y-auto">{children}</main>
+            <main className="flex-1 overflow-y-auto overflow-x-hidden">{children}</main>
           </section>
         </section>
 

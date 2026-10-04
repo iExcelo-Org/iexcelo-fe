@@ -279,7 +279,7 @@ const Earnings = () => {
               Earnings Performance
             </h3>
             <p className="text-[#757575] text-[.8125rem] sm:text-[.875rem] font-[400] leading-5">
-              {activeOption.hint} — {currencySymbol} earnings
+              {activeOption.hint} · {currencySymbol} earnings
             </p>
           </div>
           <div className="relative">
@@ -455,7 +455,7 @@ const Earnings = () => {
               Commission breakdown by student package type
             </span>
           </div>
-          <div className="flex-1 min-h-[300px] relative">
+          <div className="h-[260px] sm:h-[300px] relative">
             {isLoadingEarningsByPlan && (
               <div className="absolute inset-0 bg-white/70 flex items-center justify-center z-10">
                 <Icon

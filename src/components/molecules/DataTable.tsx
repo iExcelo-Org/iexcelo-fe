@@ -67,6 +67,8 @@ type IDataTableProps = {
   shouldNotHaveBorder?: boolean;
   nonScrollable?: boolean;
   onCheckChange?: (e: any) => void;
+  customResponsiveBody?: (row: Array<any>, rowIndex: number) => ReactNode;
+  customResponsiveSkeleton?: ReactNode;
 };
 
 const DataTable = ({
@@ -509,7 +511,7 @@ const DataTable = ({
       >
         <style jsx>{`
           div :global(table) { width: 100%; height: fit-content; }
-          div :global(th:after) { bottom: -1px; width: 100%; left: 0; position: absolute; content: ""; border-bottom: 1px solid #f1f1f1 !important; }
+          div :global(th:after) { content: none; }
           div :global(.last-row) { border-bottom: none !important; }
           div :global(thead) { background-color: #fff; position: sticky; z-index: 1; top: 0; height: fit-content; }
         `}</style>
@@ -608,11 +610,15 @@ const DataTable = ({
       </div>
 
       {/* ── Mobile / tablet card grid (below lg) ────────────────────────────────── */}
-      <div className="lg:hidden flex-1 overflow-auto px-3 sm:px-4 pt-3 sm:pt-4 pb-4">
+      <div className="lg:hidden flex-1 overflow-auto pt-3 sm:pt-4 pb-4">
 
         {props.loading ? (
           /* Loading skeleton */
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+          props.customResponsiveSkeleton ? (
+            <div className="bg-white overflow-hidden animate-pulse">
+              {props.customResponsiveSkeleton}
+            </div>
+          ) : <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
             {Array.from({ length: 6 }, (_, i) => (
               <div key={i} className="rounded-[.75rem] border border-[#E4E7EC] bg-white overflow-hidden animate-pulse">
                 <div className="h-10 sm:h-11 bg-gray-100 border-b border-[#E4E7EC]" />
@@ -637,6 +643,20 @@ const DataTable = ({
                 <p className="text-[.8125rem] sm:text-sm text-gray-500">{props?.emptyStateProps?.text || "No data available"}</p>
               </>
             )}
+          </div>
+        ) : props.customResponsiveBody ? (
+          /* Custom responsive body */
+          <div className="bg-white overflow-hidden">
+            {formattedData.map((row, row_index) => (
+              <React.Fragment key={row_index}>
+                {props.customResponsiveBody!(row, row_index)}
+                {row_index < formattedData.length - 1 && (
+                  <div className="px-6 sm:px-8">
+                    <div className="h-px bg-[#F2F4F7]" />
+                  </div>
+                )}
+              </React.Fragment>
+            ))}
           </div>
         ) : (
           /* Card grid */
@@ -712,7 +732,7 @@ const DataTable = ({
 
         {/* Card pagination */}
         {props?.pagination && !props.loading && !!formattedData.length && (
-          <div className="flex items-center justify-between mt-4 px-1">
+          <div className="flex items-center justify-between mt-4 px-3 sm:px-4">
             <span className="text-[.6875rem] sm:text-xs font-medium text-[#202224] opacity-60">
               Showing {props?.metaData?.currentPage || 1}–{props?.metaData?.endPage || 1} of {props?.metaData?.totalRecords || 1}
             </span>

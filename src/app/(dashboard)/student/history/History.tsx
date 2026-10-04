@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect } from "react";
+import { Fragment, useEffect } from "react";
 import Link from "next/link";
+import { Icon } from "@iconify/react";
 import { Table } from "@/components/molecules";
 import { useAuthStore, useStudentStore } from "@/store";
 import {
@@ -101,6 +102,78 @@ const History = () => {
           },
         }}
         recordsPerPage={RECORDS_PER_PAGE}
+        customResponsiveSkeleton={
+          <>
+            {Array.from({ length: 8 }, (_, i) => (
+              <Fragment key={i}>
+                <div className="flex items-center gap-3 px-4 py-3">
+                  <div className="w-9 h-9 rounded-full bg-gray-200 shrink-0" />
+                  <div className="flex-1 min-w-0 flex flex-col gap-1">
+                    <div className="h-3.5 w-28 bg-gray-200 rounded" />
+                    <div className="h-2.5 w-40 bg-gray-100 rounded" />
+                    <div className="h-2.5 w-20 bg-gray-100 rounded" />
+                  </div>
+                  <div className="flex flex-col items-end gap-1 shrink-0">
+                    <div className="h-5 w-12 bg-gray-200 rounded-full" />
+                    <div className="h-2.5 w-10 bg-gray-100 rounded" />
+                  </div>
+                </div>
+                {i < 7 && (
+                  <div className="px-6 sm:px-8">
+                    <div className="h-px bg-[#F2F4F7]" />
+                  </div>
+                )}
+              </Fragment>
+            ))}
+          </>
+        }
+        customResponsiveBody={(row, rowIndex) => {
+          const [examType, mode, date, totalQ, scoreData, timeUsed, id] = row as [
+            string, string, string, number,
+            { score: number; category: string | null },
+            string, string,
+          ];
+          const hideScore = scoreData.category === "theory" || scoreData.category === "practical";
+          const modeColors: Record<string, string> = { Revision: "#007FFF", Timed: "#F3A218", Mock: "#A12161" };
+          const modeIcons: Record<string, string> = {
+            Revision: "hugeicons:book-open-02",
+            Timed: "hugeicons:clock-02",
+            Mock: "hugeicons:layout-grid-01",
+          };
+          const color = modeColors[mode] ?? "#667085";
+          const icon = modeIcons[mode] ?? "hugeicons:exam-01";
+          return (
+            <div key={rowIndex} className="flex items-center gap-3 px-4 py-3">
+              <div
+                className="w-9 h-9 rounded-full flex items-center justify-center shrink-0"
+                style={{ backgroundColor: `${color}18`, color }}
+              >
+                <Icon icon={icon} className="w-4 h-4" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-[.8125rem] font-[600] text-[#171717] truncate">{examType}</p>
+                <p className="text-[.6875rem] text-[#667085] mt-0.5">{mode} · {date}</p>
+                <p className="text-[.6875rem] text-[#667085]">{totalQ} Qs · {timeUsed}</p>
+              </div>
+              <div className="flex flex-col items-end gap-1 shrink-0">
+                {!hideScore ? (
+                  <span
+                    className={`text-[.6875rem] font-semibold px-2 py-0.5 rounded-full ${
+                      scoreData.score < 50 ? "bg-red-50 text-red-600" : "bg-green-50 text-green-700"
+                    }`}
+                  >
+                    {scoreData.score.toFixed(1)}%
+                  </span>
+                ) : (
+                  <span className="text-[.6875rem] text-gray-400">N/A</span>
+                )}
+                <Link href={`/student/history/${id}`} className="text-[.6875rem] font-[600] text-[#007FFF]">
+                  Review
+                </Link>
+              </div>
+            </div>
+          );
+        }}
         emptyStateProps={{
           svg: "hugeicons:shopping-cart-02",
           title: "No exam history yet",

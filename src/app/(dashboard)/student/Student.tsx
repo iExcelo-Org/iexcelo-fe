@@ -297,7 +297,7 @@ export default function Student() {
               Exams Available
             </h3>
             <div className="flex-1 flex flex-col">
-              <div className="grid grid-cols-2 gap-2 sm:gap-3 flex-1">
+              <div className="grid grid-cols-2 gap-2 sm:gap-3 flex-1 [&>*:last-child:nth-child(odd)]:col-span-2">
                 {examsAvailable.map((exam) => {
                   let badgeText = "";
                   let badgeClass = "";

@@ -16,10 +16,10 @@ function SectionCard({
   children: React.ReactNode;
 }) {
   return (
-    <div style={{ boxShadow: CARD_SHADOW }} className="rounded-[.75rem] bg-white p-[1.5rem]">
-      <div className="mb-[1.25rem]">
-        <h2 className="text-[1rem] font-[600] text-[#101828]">{title}</h2>
-        {description && <p className="text-[.875rem] text-[#667085] mt-[.25rem]">{description}</p>}
+    <div style={{ boxShadow: CARD_SHADOW }} className="rounded-[.75rem] bg-white p-[1rem] sm:p-[1.5rem]">
+      <div className="mb-[1rem] sm:mb-[1.25rem]">
+        <h2 className="text-[.9375rem] sm:text-[1rem] font-[600] text-[#101828]">{title}</h2>
+        {description && <p className="text-[.8125rem] sm:text-[.875rem] text-[#667085] mt-[.25rem]">{description}</p>}
       </div>
       {children}
     </div>

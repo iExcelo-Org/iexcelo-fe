@@ -93,7 +93,7 @@ export default function EarningsSkeleton() {
           <div className="h-5 sm:h-6 w-36 sm:w-40 bg-gray-200 rounded mb-1" />
           {/* Subtitle: h-4 */}
           <div className="h-4 w-48 sm:w-56 bg-gray-100 rounded mb-4 sm:mb-6" />
-          <div className="h-[200px] sm:h-[240px] md:h-64 bg-gray-100 rounded-lg" />
+          <div className="h-[260px] sm:h-[300px] bg-gray-100 rounded-lg" />
         </div>
       </section>
     </section>

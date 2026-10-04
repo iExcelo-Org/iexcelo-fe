@@ -67,10 +67,10 @@ function PageSkeleton() {
 function Spinner({ size = "md" }: { size?: "sm" | "md" | "lg" }) {
   const cls =
     size === "lg"
-      ? "w-9 h-9 border-[3px]"
+      ? "w-6 h-6 sm:w-7 sm:h-7 md:w-9 md:h-9 border-[3px]"
       : size === "sm"
-        ? "w-5 h-5 border-2"
-        : "w-7 h-7 border-[3px]";
+        ? "w-4 h-4 sm:w-5 sm:h-5 border-2"
+        : "w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 border-[3px]";
   return (
     <div
       className={`${cls} rounded-full border-[#007FFF] border-t-transparent animate-spin`}

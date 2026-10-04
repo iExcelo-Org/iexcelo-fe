@@ -131,9 +131,9 @@ function SubscriptionsSkeleton() {
       <div className="h-6 sm:h-7 w-40 sm:w-56 bg-gray-200 rounded-lg animate-pulse mb-4 sm:mb-5" />
 
       {/* Plan cards */}
-      <div className="flex flex-wrap justify-center gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-4 lg:grid-cols-6 gap-6">
         {[0, 1, 2].map((i) => (
-          <div key={i} className="w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)]">
+          <div key={i} className="sm:col-span-2 lg:col-span-2">
             <div
               style={{
                 boxShadow:
@@ -501,7 +501,7 @@ const Subscriptions = () => {
       {checkoutInfo && checkoutInfo.plans.length > 0 ? (
         <div
           className={cn(
-            "flex flex-wrap justify-center gap-6",
+            "grid grid-cols-1 sm:grid-cols-4 lg:grid-cols-6 gap-6",
             isSponsored && "opacity-50 pointer-events-none select-none",
           )}
         >
@@ -511,9 +511,19 @@ const Subscriptions = () => {
             const isUpcomingPlan =
               activeSubscription?.upcomingSubscription?.planId === plan.id;
             const formattedPrice = `${currencySymbol}${plan.price.toLocaleString()}`;
+            const total = checkoutInfo.plans.length;
+            const isLast = index === total - 1;
+            const isSecondToLast = index === total - 2;
+            const smRemainder = total % 2;
+            const lgRemainder = total % 3;
+            const smStart = smRemainder === 1 && isLast ? "sm:col-start-2" : "";
+            let lgStart = "";
+            if (lgRemainder === 1 && isLast) lgStart = "lg:col-start-3";
+            else if (lgRemainder === 2 && isSecondToLast) lgStart = "lg:col-start-2";
+            else if (lgRemainder === 2 && isLast) lgStart = "lg:col-start-4";
 
             return (
-              <div key={plan.id} className="w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)]">
+              <div key={plan.id} className={cn("sm:col-span-2 lg:col-span-2", smStart, lgStart)}>
                 <div
                   style={{
                     boxShadow:
