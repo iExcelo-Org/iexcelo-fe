@@ -43,7 +43,7 @@ function NotificationPanel({
 
   return (
     <div
-      className="absolute right-0 top-full mt-2 w-[22rem] rounded-[.875rem] bg-white shadow-xl border border-[#EDEDED] z-50 overflow-hidden"
+      className="fixed right-0 top-[4.5rem] sm:absolute sm:right-0 sm:top-full sm:mt-2 w-[22rem] max-w-[100vw] sm:max-w-none rounded-[.875rem] bg-white shadow-xl border border-[#EDEDED] z-50 overflow-hidden"
       style={{
         boxShadow: "0 8px 32px 0 rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.06)",
       }}
