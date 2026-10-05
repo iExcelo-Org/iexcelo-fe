@@ -50,8 +50,8 @@ export default function SettingsLayout({ children }: { children: ReactNode }) {
       </div>
 
       {/* Mobile tab strip — stacks above content below md */}
-      <div className="md:hidden w-[100vw] overflow-x-auto pb-1.5 mb-4 [&::-webkit-scrollbar]:hidden [scrollbar-width:none]">
-        <div className="flex gap-1.5 w-max">
+      <div className="md:hidden -mx-[.875rem] overflow-x-auto pb-1.5 mb-4 [&::-webkit-scrollbar]:hidden [scrollbar-width:none]">
+        <div className="flex gap-1.5 w-max px-[.875rem]">
           {settingsNavItems.map((item) => {
             const isActive = pathname.startsWith(item.href);
             return (
