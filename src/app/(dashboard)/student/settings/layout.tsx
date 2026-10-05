@@ -39,7 +39,7 @@ export default function SettingsLayout({ children }: { children: ReactNode }) {
   const pathname = usePathname();
 
   return (
-    <section className="xl:px-[2rem] w-full px-[.875rem] py-[1.25rem] mx-auto overflow-x-clip">
+    <section className="xl:px-[2rem] w-full px-[.875rem] py-[1.25rem] mx-auto overflow-x-hidden">
       <div className="mb-4 sm:mb-6">
         <h1 className="text-[1.125rem] sm:text-[1.5rem] font-[600] leading-[1.5rem] sm:leading-[2rem] text-[#101828]">
           Settings
@@ -50,8 +50,8 @@ export default function SettingsLayout({ children }: { children: ReactNode }) {
       </div>
 
       {/* Mobile tab strip — stacks above content below md */}
-      <div className="md:hidden -mx-[.875rem] overflow-x-auto pb-1.5 mb-4 [&::-webkit-scrollbar]:hidden [scrollbar-width:none]">
-        <div className="flex gap-1.5 w-max px-[.875rem]">
+      <div className="md:hidden w-[100vw] overflow-x-auto pb-1.5 mb-4 [&::-webkit-scrollbar]:hidden [scrollbar-width:none]">
+        <div className="flex gap-1.5 w-max">
           {settingsNavItems.map((item) => {
             const isActive = pathname.startsWith(item.href);
             return (
