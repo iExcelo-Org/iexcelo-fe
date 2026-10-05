@@ -89,7 +89,7 @@ self.addEventListener("push", (event) => {
   const title = data.title || "iExcelo";
   const options = {
     body: data.body || "",
-    icon: "/seo/logo.png",
+    icon: "/seo/icon-192.png",
     data: { url: data.url || "/" },
     tag: data.url || "iexcelo-notification",
     renotify: true,
