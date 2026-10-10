@@ -943,7 +943,7 @@ export default function Timed() {
                           )}
                         </div>
 
-                        {question.correctAnswer && (
+                        {question.correctAnswer && !isEssay && (
                           <>
                             <div className="h-[1px] w-full bg-[#EDEDED] my-4" />
                             {question.type === "multiple_choice" ||
