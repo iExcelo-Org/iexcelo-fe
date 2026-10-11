@@ -114,10 +114,31 @@ export default function Exams() {
 
   // Subjects visible under the current category filter
   // Practical category: only show subjects that actually have practical questions
+  // Theory category: only show subjects that actually have theory questions
   const visibleSubjects =
     selectedCategory === "practical"
       ? registeredSubjects.filter((s) => (s.practicalCount ?? 0) > 0)
-      : registeredSubjects;
+      : selectedCategory === "theory"
+        ? registeredSubjects.filter((s) => (s.theoryCount ?? 0) > 0)
+        : registeredSubjects;
+
+  // Available question count for a subject in the current category
+  const getSubjectAvailable = (s: typeof registeredSubjects[0]): number => {
+    if (selectedCategory === "practical") return s.practicalCount ?? 0;
+    if (selectedCategory === "theory") return s.theoryCount ?? 0;
+    return s.totalQuestions ?? 0;
+  };
+
+  // For demo users: denominator is min(available in category, tier limit) — no deception
+  const getSubjectDemoMax = (s: typeof registeredSubjects[0]): number =>
+    Math.min(getSubjectAvailable(s), freeTierLimit);
+
+  // Answered count scoped to the active category
+  const getSubjectAttempted = (s: typeof registeredSubjects[0]): number => {
+    if (selectedCategory === "practical") return s.practicalAttempted ?? 0;
+    if (selectedCategory === "theory") return s.theoryAttempted ?? 0;
+    return s.questionsAttempted ?? 0;
+  };
 
   // Fetch mock config whenever exam type changes
   useEffect(() => {
@@ -162,13 +183,13 @@ export default function Exams() {
     visibleSubjects.length > 0 &&
     visibleSubjects.every((s) => selectedSubjectIds.includes(s.id));
 
-  // Total Qs for the "All" pill — sum of visible subjects' Q counts
+  // Total Qs for the "All" pill — category-aware sums
   const visibleQTotal = visibleSubjects.reduce(
-    (sum, s) => sum + (s.totalQuestions ?? 0),
+    (sum, s) => sum + getSubjectAvailable(s),
     0,
   );
   const visibleQAttempted = visibleSubjects.reduce(
-    (sum, s) => sum + (s.questionsAttempted ?? 0),
+    (sum, s) => sum + getSubjectAttempted(s),
     0,
   );
 
@@ -593,16 +614,16 @@ export default function Exams() {
                           {isDemoUser ? (
                             <div className="flex items-center gap-2">
                               <span className="text-xs text-[#865503] bg-[#FEF6E7] px-2 py-0.5 rounded-full font-[500]">
-                                {subject.questionsAttempted ?? 0}/{freeTierLimit}
+                                {getSubjectAttempted(subject)}/{getSubjectDemoMax(subject)}
                               </span>
                               <span className="text-xs text-[#667085]">
-                                {(subject.totalQuestions ?? 0).toLocaleString()} Qs
+                                {getSubjectAvailable(subject).toLocaleString()} Qs
                               </span>
                             </div>
                           ) : (
                             <div className="flex items-center gap-2">
                               <span className="text-xs text-[#667085]">
-                                {(subject.questionsAttempted ?? 0).toLocaleString()}/{(subject.totalQuestions ?? 0).toLocaleString()} Qs
+                                {getSubjectAttempted(subject).toLocaleString()}/{getSubjectAvailable(subject).toLocaleString()} Qs
                               </span>
                               <button
                                 onClick={() => handleViewTopics(subject.id)}

@@ -248,11 +248,22 @@ export interface IDashboardData {
     freeTierQuestionLimit: number;
     supportedCategories: string[];
   };
-  selectedSubjects: { id: string; name: string; totalQuestions: number; practicalCount: number; questionsAttempted: number }[];
+  selectedSubjects: {
+    id: string;
+    name: string;
+    totalQuestions: number;
+    theoryCount: number;
+    practicalCount: number;
+    questionsAttempted: number;
+    theoryAttempted: number;
+    practicalAttempted: number;
+  }[];
   stats: {
     totalExamsCompleted: number;
     totalSubjectsSelected: number;
     totalQuestionsSolved: number;
+    theoryQuestionsSolved: number;
+    practicalQuestionsSolved: number;
     totalCorrect: number;
     totalWrong: number;
     overallAccuracy: number;
