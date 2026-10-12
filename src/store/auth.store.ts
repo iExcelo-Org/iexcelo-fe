@@ -121,8 +121,8 @@ export const useAuthStore = create<IAuthStore>()(
 
         // Get referral code from localStorage (saved from ?ref= URL param)
         const referralCode = localStorage.getItem("referralCode");
-        // Get sponsor code from localStorage (saved from ?sponsor= URL param via /signup/s/:code)
-        const sponsorCode = localStorage.getItem("sponsorCode");
+        // Get sponsor code from sessionStorage (saved from ?sponsor= URL param via /signup/s/:code)
+        const sponsorCode = sessionStorage.getItem("sponsorCode");
 
         try {
           const response = await api.post("/auth/signup", {
@@ -141,7 +141,7 @@ export const useAuthStore = create<IAuthStore>()(
 
           // Clear referral + sponsor codes after successful signup
           localStorage.removeItem("referralCode");
-          localStorage.removeItem("sponsorCode");
+          sessionStorage.removeItem("sponsorCode");
 
           // Store email for verification page
           set({ signupEmail: email });
@@ -212,8 +212,8 @@ export const useAuthStore = create<IAuthStore>()(
       completeOnboarding: async (payload, callback) => {
         // Get referral code from localStorage (saved from ?ref= URL param before Google OAuth)
         const referralCode = localStorage.getItem("referralCode");
-        // Get sponsor code from localStorage (saved from ?sponsor= URL param via /signup/s/:code)
-        const sponsorCode = localStorage.getItem("sponsorCode");
+        // Get sponsor code from sessionStorage (saved from ?sponsor= URL param via /signup/s/:code)
+        const sponsorCode = sessionStorage.getItem("sponsorCode");
 
         try {
           // Use tempAuthRequest to automatically use tempToken from store
@@ -229,7 +229,7 @@ export const useAuthStore = create<IAuthStore>()(
 
           // Clear referral + sponsor codes after successful onboarding
           localStorage.removeItem("referralCode");
-          localStorage.removeItem("sponsorCode");
+          sessionStorage.removeItem("sponsorCode");
 
           const { accessToken, refreshToken, user, profile } =
             response.data.data;

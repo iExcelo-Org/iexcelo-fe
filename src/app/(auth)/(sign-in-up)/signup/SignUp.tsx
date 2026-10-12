@@ -41,7 +41,7 @@ const SignUpInner = () => {
   useEffect(() => {
     const sponsor = searchParams.get("sponsor");
     if (sponsor) {
-      localStorage.setItem("sponsorCode", sponsor);
+      sessionStorage.setItem("sponsorCode", sponsor);
       setUserType(UserType.STUDENT);
       setStep(2);
     }
