@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Button, SVGClient } from "../atoms";
 import { Icon } from "@iconify/react";
 import { usePathname, useRouter } from "next/navigation";
+import { useAuthStore } from "@/store";
 
 const FEATURES = [
   {
@@ -47,6 +48,18 @@ const LandingHeader = () => {
 
   const pathname = usePathname();
   const { push } = useRouter();
+
+  const { isAuthenticated, user, logout, hydrated } = useAuthStore();
+  const firstName: string = user?.firstName ?? "";
+  const initials =
+    `${user?.firstName?.[0] ?? ""}${user?.lastName?.[0] ?? ""}`.toUpperCase() ||
+    "?";
+  const loggedIn = isAuthenticated && hydrated;
+
+  const handleLogout = async () => {
+    await logout();
+    push("/");
+  };
 
   // Click outside handler for features dropdown
   useEffect(() => {
@@ -170,44 +183,78 @@ const LandingHeader = () => {
             </ul>
           </nav>
           <div className="flex gap-[1rem] items-center">
-            <button
-              onClick={() => push("/login")}
-              className="font-[600] text-[1rem] leading-[1.5rem] cursor-pointer"
-            >
-              Log In
-            </button>
-            <Button onClick={() => push("/signup")}>Sign Up</Button>
+            {loggedIn ? (
+              <div className="flex items-center gap-[.875rem]">
+                <div className="flex items-center gap-[.625rem]">
+                  <div className="w-[2rem] h-[2rem] rounded-full bg-[#007FFF] flex items-center justify-center text-white text-[.6875rem] font-bold shrink-0 ring-2 ring-white/30">
+                    {initials}
+                  </div>
+                  <span className="font-[600] text-[.9375rem] leading-[1.5rem] text-white">
+                    {firstName}
+                  </span>
+                </div>
+                <button
+                  onClick={handleLogout}
+                  className="flex items-center gap-[.375rem] font-[600] text-[.875rem] leading-[1.5rem] text-white/70 hover:text-white transition-colors cursor-pointer"
+                >
+                  <Icon icon="hugeicons:logout-02" className="w-[1.125rem] h-[1.125rem]" />
+                  Log Out
+                </button>
+              </div>
+            ) : (
+              <>
+                <button
+                  onClick={() => push("/login")}
+                  className="font-[600] text-[1rem] leading-[1.5rem] cursor-pointer"
+                >
+                  Log In
+                </button>
+                <Button onClick={() => push("/signup")}>Sign Up</Button>
+              </>
+            )}
           </div>
         </div>
 
-        {/* Mobile Menu Button */}
-        <button
-          className="lg:hidden cursor-pointer text-white p-2"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
+        {/* Mobile: avatar pill + hamburger */}
+        <div className="lg:hidden flex items-center gap-[.5rem]">
+          {loggedIn && (
+            <div className="flex items-center gap-[.375rem] bg-white/10 rounded-full px-[.625rem] py-[.25rem]">
+              <div className="w-[1.5rem] h-[1.5rem] rounded-full bg-[#007FFF] flex items-center justify-center text-white text-[.5625rem] font-bold shrink-0">
+                {initials}
+              </div>
+              <span className="text-white font-[600] text-[.75rem] leading-none max-w-[5rem] truncate">
+                {firstName}
+              </span>
+            </div>
+          )}
+          <button
+            className="cursor-pointer text-white p-2"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
-            {isMobileMenuOpen ? (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
-              />
-            ) : (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            )}
-          </svg>
-        </button>
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              {isMobileMenuOpen ? (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              ) : (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              )}
+            </svg>
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}
@@ -283,18 +330,40 @@ const LandingHeader = () => {
             ))}
 
             <div className="pt-[1rem] border-t border-white/20 flex flex-col gap-[0.75rem]">
-              <button
-                onClick={() => push("/login")}
-                className="w-fit font-[600] text-[1rem] leading-[1.5rem] p-[.75rem_1.25rem] cursor-pointer text-center"
-              >
-                Log In
-              </button>
-              <Button
-                onClick={() => push("/signup")}
-                style={{ width: "fit-content" }}
-              >
-                Sign Up
-              </Button>
+              {loggedIn ? (
+                <div className="flex flex-col gap-[.75rem]">
+                  <div className="flex items-center gap-[.75rem]">
+                    <div className="w-[2.5rem] h-[2.5rem] rounded-full bg-[#007FFF] flex items-center justify-center text-white text-[.75rem] font-bold shrink-0 ring-2 ring-white/20">
+                      {initials}
+                    </div>
+                    <span className="font-[600] text-[1rem] leading-[1.5rem] text-white">
+                      {firstName}
+                    </span>
+                  </div>
+                  <button
+                    onClick={handleLogout}
+                    className="w-fit flex items-center gap-[.5rem] font-[600] text-[.9375rem] leading-[1.5rem] text-white/70 hover:text-white transition-colors cursor-pointer"
+                  >
+                    <Icon icon="hugeicons:logout-02" className="w-[1.125rem] h-[1.125rem]" />
+                    Log Out
+                  </button>
+                </div>
+              ) : (
+                <>
+                  <button
+                    onClick={() => push("/login")}
+                    className="w-fit font-[600] text-[1rem] leading-[1.5rem] p-[.75rem_1.25rem] cursor-pointer text-center"
+                  >
+                    Log In
+                  </button>
+                  <Button
+                    onClick={() => push("/signup")}
+                    style={{ width: "fit-content" }}
+                  >
+                    Sign Up
+                  </Button>
+                </>
+              )}
             </div>
           </nav>
         </div>
