@@ -135,6 +135,20 @@ export const useSettingsStore = create<ISettingsStore>()((set) => ({
     }
   },
 
+  // ── Google Connect ────────────────────────────────────────────────────────
+  getGoogleConnectState: async () => {
+    try {
+      const res = await authRequest<{ state: string }>({
+        method: "GET",
+        url: "/auth/google/connect-init",
+      });
+      return res.data.state;
+    } catch (error) {
+      handleAxiosError(error, "Failed to initiate Google connect");
+      return null;
+    }
+  },
+
   // ── Disconnect Google ─────────────────────────────────────────────────────
   disconnectingGoogle: false,
   disconnectGoogle: async (onSuccess) => {

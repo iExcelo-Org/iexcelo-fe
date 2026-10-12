@@ -123,6 +123,7 @@ export interface ISettingsStore {
   // google
   disconnectingGoogle: boolean;
   disconnectGoogle: (onSuccess?: () => void) => Promise<void>;
+  getGoogleConnectState: () => Promise<string | null>;
   // billing
   billingHistory: IBillingTransaction[];
   billingTotal: number;

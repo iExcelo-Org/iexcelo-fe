@@ -245,8 +245,13 @@ function SetPasswordFlow({ email }: { email: string }) {
 
 function PasswordInner() {
   const { user, refreshUser } = useAuthStore();
-  const { changePassword, changingPassword, disconnectGoogle, disconnectingGoogle } =
-    useSettingsStore();
+  const {
+    changePassword,
+    changingPassword,
+    disconnectGoogle,
+    disconnectingGoogle,
+    getGoogleConnectState,
+  } = useSettingsStore();
 
   const searchParams = useSearchParams();
   const [justConnected, setJustConnected] = useState(false);
@@ -284,9 +289,11 @@ function PasswordInner() {
     });
   };
 
-  const handleConnectGoogle = () => {
-    // Pass the user's id as state so the backend callback knows this is a connect flow
-    window.location.href = `${API_URL}/auth/google?state=${user?.id ?? ""}`;
+  const handleConnectGoogle = async () => {
+    const state = await getGoogleConnectState();
+    if (state) {
+      window.location.href = `${API_URL}/auth/google?state=${state}`;
+    }
   };
 
   return (
