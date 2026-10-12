@@ -104,7 +104,7 @@ const LandingHeader = () => {
   }, [isMobileMenuOpen]);
 
   return (
-    <header className="fixed z-[4] w-full top-[3.25rem] lg:top-[3.25rem] px-[1rem] md:px-[2rem] lg:px-0 md:top-[1.5rem] sm:top-[1rem]">
+    <header className="fixed z-[4] w-full top-[1.25rem] lg:top-[3.25rem] px-[1rem] md:px-[2rem] lg:px-0 md:top-[1.5rem] sm:top-[1rem]">
       <div className="flex backdrop-blur-[40px] mx-auto justify-between items-center max-w-[870px] w-[100%] p-[.625rem] bg-[#00356B] rounded-[6.25rem]">
         <Link href={"/"}>
           <SVGClient src="/svg/logo.svg" />
