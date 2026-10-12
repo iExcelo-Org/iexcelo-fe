@@ -54,6 +54,7 @@ const LandingHeader = () => {
   const initials =
     `${user?.firstName?.[0] ?? ""}${user?.lastName?.[0] ?? ""}`.toUpperCase() ||
     "?";
+  const picture: string | null | undefined = user?.picture;
   const loggedIn = isAuthenticated && hydrated;
 
   const handleLogout = async () => {
@@ -184,21 +185,32 @@ const LandingHeader = () => {
           </nav>
           <div className="flex gap-[1rem] items-center">
             {loggedIn ? (
-              <div className="flex items-center gap-[.875rem]">
-                <div className="flex items-center gap-[.625rem]">
-                  <div className="w-[2rem] h-[2rem] rounded-full bg-[#007FFF] flex items-center justify-center text-white text-[.6875rem] font-bold shrink-0 ring-2 ring-white/30">
-                    {initials}
-                  </div>
-                  <span className="font-[600] text-[.9375rem] leading-[1.5rem] text-white">
+              <div className="flex items-center gap-[.75rem]">
+                <button
+                  onClick={() => push("/student")}
+                  className="flex items-center gap-[.5rem] cursor-pointer group"
+                >
+                  {picture ? (
+                    <img
+                      src={picture}
+                      alt={firstName}
+                      className="w-[2rem] h-[2rem] rounded-full object-cover shrink-0 ring-2 ring-white/30"
+                    />
+                  ) : (
+                    <div className="w-[2rem] h-[2rem] rounded-full bg-[#007FFF] flex items-center justify-center text-white text-[.6875rem] font-bold shrink-0 ring-2 ring-white/30">
+                      {initials}
+                    </div>
+                  )}
+                  <span className="font-[600] text-[.9375rem] leading-[1.5rem] text-white group-hover:underline">
                     {firstName}
                   </span>
-                </div>
+                </button>
                 <button
                   onClick={handleLogout}
-                  className="flex items-center gap-[.375rem] font-[600] text-[.875rem] leading-[1.5rem] text-white/70 hover:text-white transition-colors cursor-pointer"
+                  title="Log out"
+                  className="text-white/60 hover:text-white transition-colors cursor-pointer"
                 >
-                  <Icon icon="hugeicons:logout-02" className="w-[1.125rem] h-[1.125rem]" />
-                  Log Out
+                  <Icon icon="hugeicons:logout-02" className="w-[1.25rem] h-[1.25rem]" />
                 </button>
               </div>
             ) : (
@@ -215,46 +227,34 @@ const LandingHeader = () => {
           </div>
         </div>
 
-        {/* Mobile: avatar pill + hamburger */}
-        <div className="lg:hidden flex items-center gap-[.5rem]">
-          {loggedIn && (
-            <div className="flex items-center gap-[.375rem] bg-white/10 rounded-full px-[.625rem] py-[.25rem]">
-              <div className="w-[1.5rem] h-[1.5rem] rounded-full bg-[#007FFF] flex items-center justify-center text-white text-[.5625rem] font-bold shrink-0">
-                {initials}
-              </div>
-              <span className="text-white font-[600] text-[.75rem] leading-none max-w-[5rem] truncate">
-                {firstName}
-              </span>
-            </div>
-          )}
-          <button
-            className="cursor-pointer text-white p-2"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        {/* Mobile hamburger */}
+        <button
+          className="lg:hidden cursor-pointer text-white p-2"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        >
+          <svg
+            className="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
           >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              {isMobileMenuOpen ? (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              ) : (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              )}
-            </svg>
-          </button>
-        </div>
+            {isMobileMenuOpen ? (
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            ) : (
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            )}
+          </svg>
+        </button>
       </div>
 
       {/* Mobile Menu */}
@@ -331,21 +331,34 @@ const LandingHeader = () => {
 
             <div className="pt-[1rem] border-t border-white/20 flex flex-col gap-[0.75rem]">
               {loggedIn ? (
-                <div className="flex flex-col gap-[.75rem]">
-                  <div className="flex items-center gap-[.75rem]">
-                    <div className="w-[2.5rem] h-[2.5rem] rounded-full bg-[#007FFF] flex items-center justify-center text-white text-[.75rem] font-bold shrink-0 ring-2 ring-white/20">
-                      {initials}
-                    </div>
-                    <span className="font-[600] text-[1rem] leading-[1.5rem] text-white">
+                <div className="flex items-center justify-between gap-[1rem]">
+                  {/* pfp + name — clickable to dashboard */}
+                  <button
+                    onClick={() => { push("/student"); setIsMobileMenuOpen(false); }}
+                    className="flex items-center gap-[.625rem] cursor-pointer group"
+                  >
+                    {picture ? (
+                      <img
+                        src={picture}
+                        alt={firstName}
+                        className="w-[2.25rem] h-[2.25rem] rounded-full object-cover shrink-0 ring-2 ring-white/20"
+                      />
+                    ) : (
+                      <div className="w-[2.25rem] h-[2.25rem] rounded-full bg-[#007FFF] flex items-center justify-center text-white text-[.6875rem] font-bold shrink-0 ring-2 ring-white/20">
+                        {initials}
+                      </div>
+                    )}
+                    <span className="font-[600] text-[1rem] leading-[1.5rem] text-white group-hover:underline">
                       {firstName}
                     </span>
-                  </div>
+                  </button>
+                  {/* sm+: icon + "Log Out" text; below sm: icon only */}
                   <button
                     onClick={handleLogout}
-                    className="w-fit flex items-center gap-[.5rem] font-[600] text-[.9375rem] leading-[1.5rem] text-white/70 hover:text-white transition-colors cursor-pointer"
+                    className="flex items-center gap-[.375rem] font-[600] text-[.875rem] leading-[1.5rem] text-white/70 hover:text-white transition-colors cursor-pointer shrink-0"
                   >
                     <Icon icon="hugeicons:logout-02" className="w-[1.125rem] h-[1.125rem]" />
-                    Log Out
+                    <span className="hidden sm:inline">Log Out</span>
                   </button>
                 </div>
               ) : (
