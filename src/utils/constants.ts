@@ -1,6 +1,9 @@
 export const API_URL =
   process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000/api/v1";
 export const API_KEY = process.env.NEXT_PUBLIC_X_API_KEY || "";
+// Set only in the "staging" GitHub environment, which builds staging and every preview branch.
+// Production builds never have it, so they never ask the API to send users anywhere but FRONTEND_URL.
+export const IS_STAGING = process.env.NEXT_PUBLIC_APP_ENV === "staging";
 // WS_URL points to the backend root (without /api/v1 — Socket.IO registers at root)
 export const WS_URL =
   process.env.NEXT_PUBLIC_WS_URL ||

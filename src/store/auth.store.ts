@@ -7,7 +7,7 @@ import { toast } from "sonner";
 import { useStudentStore } from "./student.store";
 import { useSponsorStore } from "./sponsor.store";
 import { useAffiliateStore } from "./affiliate.store";
-import { handleAxiosError } from "@/utils";
+import { handleAxiosError, IS_STAGING } from "@/utils";
 
 // Helper to save profile data to appropriate store
 const saveProfileData = (userRole: UserType, profileData: any) => {
@@ -52,8 +52,12 @@ export const useAuthStore = create<IAuthStore>()(
       setSignupEmail: (email) => set({ signupEmail: email }),
 
       initGoogle: () => {
-        // Unified flow: backend creates user if not exists, redirects to onboarding if needed
-        window.location.href = `${API_URL}/auth/google`;
+        // Unified flow: backend creates user if not exists, redirects to onboarding if needed.
+        // Staging builds (including previews) ask to come back to this exact site afterwards.
+        const returnTo = IS_STAGING
+          ? `?returnTo=${encodeURIComponent(window.location.origin)}`
+          : "";
+        window.location.href = `${API_URL}/auth/google${returnTo}`;
       },
 
       login: async (data, callback) => {

@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { authRequest } from "@/lib/api";
-import { handleAxiosError } from "@/utils";
+import { handleAxiosError, IS_STAGING } from "@/utils";
 import { toast } from "sonner";
 import { useAuthStore } from "./auth.store";
 import type { ISettingsStore, ICardInfo } from "@/types";
@@ -141,6 +141,8 @@ export const useSettingsStore = create<ISettingsStore>()((set) => ({
       const res = await authRequest<{ state: string }>({
         method: "GET",
         url: "/auth/google/connect-init",
+        // Staging builds (including previews) ask to come back to this exact site afterwards
+        ...(IS_STAGING && { params: { returnTo: window.location.origin } }),
       });
       return res.data.state;
     } catch (error) {
