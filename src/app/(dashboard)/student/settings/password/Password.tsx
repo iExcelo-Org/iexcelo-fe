@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
-import { useEffect, useState, Suspense } from "react";
+import { useEffect, useRef, useState, Suspense } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -251,21 +251,31 @@ function PasswordInner() {
     disconnectGoogle,
     disconnectingGoogle,
     getGoogleConnectState,
+    confirmGoogleConnect,
+    confirmingGoogleConnect,
   } = useSettingsStore();
 
   const searchParams = useSearchParams();
   const [justConnected, setJustConnected] = useState(false);
+  const linkHandled = useRef(false);
 
-  // The Google connect callback appends ?connected=true — refresh user so provider updates immediately
+  // The Google connect callback returns here with ?googleLink=<token>. Confirming it with this
+  // user's session is what links the account. The ref stops a second confirm in Strict Mode.
   useEffect(() => {
-    if (searchParams.get("connected") === "true") {
+    const token = searchParams.get("googleLink");
+    if (!token || linkHandled.current) return;
+    linkHandled.current = true;
+
+    // Take the token out of the URL and history straight away
+    const url = new URL(window.location.href);
+    url.searchParams.delete("googleLink");
+    window.history.replaceState({}, "", url.toString());
+
+    void confirmGoogleConnect(token).then((ok) => {
+      if (!ok) return;
       setJustConnected(true);
       void refreshUser();
-      // Clean up the URL param without a full reload
-      const url = new URL(window.location.href);
-      url.searchParams.delete("connected");
-      window.history.replaceState({}, "", url.toString());
-    }
+    });
   }, []);
 
   const provider = user?.provider as string | undefined;
@@ -292,7 +302,7 @@ function PasswordInner() {
   const handleConnectGoogle = async () => {
     const state = await getGoogleConnectState();
     if (state) {
-      window.location.href = `${API_URL}/auth/google?state=${state}`;
+      window.location.href = `${API_URL}/auth/google?state=${encodeURIComponent(state)}`;
     }
   };
 
@@ -393,6 +403,8 @@ function PasswordInner() {
           ) : (
             <Button
               onClick={handleConnectGoogle}
+              loading={confirmingGoogleConnect}
+              disabled={confirmingGoogleConnect}
               className="bg-white! text-[#344054]! border border-[#D0D5DD] hover:bg-[#F9FAFB]!"
             >
               <SVGClient src="/svg/google.svg" />

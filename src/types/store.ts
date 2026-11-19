@@ -124,6 +124,8 @@ export interface ISettingsStore {
   disconnectingGoogle: boolean;
   disconnectGoogle: (onSuccess?: () => void) => Promise<void>;
   getGoogleConnectState: () => Promise<string | null>;
+  confirmingGoogleConnect: boolean;
+  confirmGoogleConnect: (token: string) => Promise<boolean>;
   // billing
   billingHistory: IBillingTransaction[];
   billingTotal: number;
