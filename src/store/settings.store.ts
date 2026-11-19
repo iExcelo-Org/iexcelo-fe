@@ -151,6 +151,26 @@ export const useSettingsStore = create<ISettingsStore>()((set) => ({
     }
   },
 
+  // Google sends the user back with a link token. The link only happens here, against this
+  // user's own session, so a connect started from another account cannot attach to this one.
+  confirmingGoogleConnect: false,
+  confirmGoogleConnect: async (token) => {
+    set({ confirmingGoogleConnect: true });
+    try {
+      await authRequest({
+        method: "POST",
+        url: "/auth/google/connect-confirm",
+        data: { token },
+      });
+      return true;
+    } catch (error) {
+      handleAxiosError(error, "Failed to connect Google");
+      return false;
+    } finally {
+      set({ confirmingGoogleConnect: false });
+    }
+  },
+
   // ── Disconnect Google ─────────────────────────────────────────────────────
   disconnectingGoogle: false,
   disconnectGoogle: async (onSuccess) => {
