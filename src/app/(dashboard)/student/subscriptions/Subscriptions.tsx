@@ -191,6 +191,12 @@ const Subscriptions = () => {
 
   const isSponsored = profile?.isSponsored ?? false;
 
+  // A sponsor-paid subscription has no plan, so it gets its own label. Any other
+  // subscription without a plan name gets a neutral one.
+  const currentPlanName =
+    activeSubscription?.plan?.name ??
+    (activeSubscription?.isSponsored ? "Sponsored Access" : "Subscription");
+
   const [isCancelling, setIsCancelling] = useState(false);
   const [showCancelModal, setShowCancelModal] = useState(false);
   const [showPayment, setShowPayment] = useState(false);
@@ -353,7 +359,7 @@ const Subscriptions = () => {
                 </div>
                 <div className="min-w-0">
                   <h5 className="text-[#212636] text-[1.125rem] sm:text-[1.5rem] font-[600] leading-7 sm:leading-8 tracking-[-.48px]">
-                    {activeSubscription.plan?.name ?? "Sponsored Access"}
+                    {currentPlanName}
                   </h5>
                   <p className="text-[#757575] text-[.8125rem] sm:text-[1rem] md:text-[1.125rem] font-[400] leading-5 sm:leading-7 mt-0.5">
                     {activeSubscription.status === "cancelled"
@@ -364,7 +370,7 @@ const Subscriptions = () => {
                         )}`
                       : activeSubscription.status === "suspended"
                         ? "Your subscription is suspended due to a failed payment."
-                        : `You are on the ${activeSubscription.plan?.name ?? "Sponsored Access"}${
+                        : `You are on the ${currentPlanName}${
                             activeSubscription.nextPaymentDate
                               ? `, renews automatically on ${formatDate(
                                   activeSubscription.nextPaymentDate,

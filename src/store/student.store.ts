@@ -261,7 +261,8 @@ export const useStudentStore = create<IStudentStore>()(
             ?.data as IActiveSubscription | null;
 
           set({
-            activeSubscription: subscription,
+            // Only a real subscription has an id. Anything else means there is none.
+            activeSubscription: subscription?.id ? subscription : null,
             isLoadingSubscription: false,
           });
         } catch (error) {
